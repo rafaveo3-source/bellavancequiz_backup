@@ -26,7 +26,7 @@ export const QUESTIONS: Question[] = [
     id: 'area_focus',
     type: QuestionType.SINGLE_CHOICE,
     question: 'Olhando no espelho AGORA, o que você eliminaria imediatamente se pudesse?',
-    subtext: 'Seja sincera. Para te ajudar, precisamos saber onde está sua maior dor.',
+    subtext: 'Seja sincera. Essa resposta é essencial para sua análise corporal.',
     options: [
       { 
         id: 'abdomen', 
@@ -58,7 +58,7 @@ export const QUESTIONS: Question[] = [
     id: 'weight_current',
     type: QuestionType.INPUT_NUMBER,
     question: 'Qual é o seu PESO ATUAL?',
-    subtext: 'Utilizamos este dado para calcular seu IMC e definir o protocolo ideal.',
+    subtext: 'Utilizamos este dado apenas para análise corporal. Nenhum julgamento será feito.',
     inputPlaceholder: 'Ex: 65.5',
     inputUnit: 'kg',
     min: 30,
@@ -95,7 +95,7 @@ export const QUESTIONS: Question[] = [
     id: 'info_fat_types',
     type: QuestionType.INFO,
     question: 'Você não tem culpa de não conseguir emagrecer essa área.',
-    subtext: 'Existe uma diferença crucial: Gordura Visceral vs. Gordura Compacta. A gordura compacta é um tecido fibroso, pobre em circulação. Ela "trava" e não sai com dietas comuns. É exatamente essa que vamos atacar.',
+    subtext: 'Existe uma diferença crucial que quase ninguém explica: Gordura Visceral vs. Gordura Compacta. A gordura compacta é um tecido fibroso, pobre em circulação. Ela "trava" e não sai com dietas comuns. É exatamente essa que vamos atacar.',
     infoImage: 'https://i.ibb.co/KxSDHp9j/Image-fx.jpg'
   },
   {
@@ -105,7 +105,7 @@ export const QUESTIONS: Question[] = [
     options: [
       { id: 'yoyo', label: 'Efeito Sanfona: Emagreço, mas ganho tudo de volta rápido.', icon: <Activity className="w-5 h-5"/> },
       { id: 'strict', label: 'Esforço em vão: Faço dieta, treino, mas a barriga continua lá.', icon: <Ban className="w-5 h-5"/> },
-      { id: 'metabolism', label: 'Metabolismo Lento: Sinto que meu corpo parou de queimar gordura.', icon: <Clock className="w-5 h-5"/> },
+      { id: 'metabolism', label: 'Metabolismo Lento: Sinto que meu corpo parou de responder aos meus esforços.', icon: <Clock className="w-5 h-5"/> },
       { id: 'start', label: 'Estou começando agora e não quero perder tempo errando.', icon: <Target className="w-5 h-5"/> },
     ],
   },
@@ -124,7 +124,7 @@ export const QUESTIONS: Question[] = [
     id: 'clothing_pain',
     type: QuestionType.SINGLE_CHOICE,
     question: 'Qual destas situações te causa mais constrangimento hoje?',
-    subtext: 'Este é um ambiente seguro, seja honesta.',
+    subtext: 'Este é um ambiente seguro, seja honesta. Ninguém além de você verá essa resposta.',
     options: [
       { id: 'tight_jeans', label: 'Sentar e sentir a calça apertando, dividindo a barriga.', icon: <AlertTriangle className="w-5 h-5" /> },
       { id: 'fitting_room', label: 'Experimentar roupas e sair da loja frustrada porque nada ficou bom.', icon: <Ban className="w-5 h-5" /> },
@@ -136,7 +136,7 @@ export const QUESTIONS: Question[] = [
     id: 'info_cortisol',
     type: QuestionType.INFO,
     question: 'O Ciclo do Estresse x Gordura',
-    subtext: 'Você sabia que o estresse libera Cortisol, um hormônio que literalmente OBRIGA seu corpo a estocar gordura na barriga como proteção? Se você é ansiosa, dietas restritivas podem estar PIORANDO seu caso.',
+    subtext: 'Você sabia que o estresse libera Cortisol, um hormônio que literalmente OBRIGA seu corpo a estocar gordura na barriga como proteção? Se você é ansiosa, dietas restritivas podem estar agindo contra o seu corpo.',
     infoImage: 'https://i.ibb.co/JR6GGZdF/Image-fx.jpg' 
   },
   {
@@ -213,8 +213,8 @@ export const QUESTIONS: Question[] = [
   {
     id: 'lead_capture',
     type: QuestionType.LEAD_CAPTURE,
-    question: 'Análise Concluída! Onde enviamos seu diagnóstico?',
-    subtext: 'Insira seu WhatsApp para receber a avaliação da Dra. Luana e destravar sua condição especial.',
+    question: 'Seu diagnóstico está pronto.',
+    subtext: 'Enviaremos a análise da Dra. + sua condição especial diretamente no WhatsApp.',
   }
 ];
 
