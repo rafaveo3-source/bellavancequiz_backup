@@ -20,8 +20,6 @@ const VSLPage: React.FC<VSLPageProps> = ({ userName, onBack }) => {
   const [scrollY, setScrollY] = useState(0);
   const [bioVisible, setBioVisible] = useState(false);
   const [timeLeft, setTimeLeft] = useState(600); // 10 minutes in seconds
-  const [isMuted, setIsMuted] = useState(true); // Track mute state
-  const [soundButtonVisible, setSoundButtonVisible] = useState(false); // Track button visibility
   const bioRef = useRef<HTMLDivElement>(null);
   const iframeRef = useRef<HTMLIFrameElement>(null);
   const vimeoPlayerRef = useRef<Player | null>(null);
@@ -92,18 +90,18 @@ const VSLPage: React.FC<VSLPageProps> = ({ userName, onBack }) => {
 
   // Vimeo Player Initialization
   useEffect(() => {
-  if (!iframeRef.current) return;
+    if (!iframeRef.current) return;
 
-  vimeoPlayerRef.current = new Player(iframeRef.current, {
-    muted: true,
-    autopause: false,
-  });
+    vimeoPlayerRef.current = new Player(iframeRef.current, {
+      muted: true, // Start muted for policy, but we'll unmute on first click
+      autopause: false,
+    });
 
-  return () => {
-    vimeoPlayerRef.current?.destroy();
-    vimeoPlayerRef.current = null;
-  };
-}, []);
+    return () => {
+      vimeoPlayerRef.current?.destroy();
+      vimeoPlayerRef.current = null;
+    };
+  }, []);
 
   // Exit Intent Logic
   useEffect(() => {
@@ -145,41 +143,22 @@ const VSLPage: React.FC<VSLPageProps> = ({ userName, onBack }) => {
   };
 
   const handleStartVideo = async () => {
-  setIsVideoPlaying(true);
-  setSoundButtonVisible(true);
-  setIsMuted(true);
+    setIsVideoPlaying(true);
 
-  try {
-    await vimeoPlayerRef.current?.ready();
-    await vimeoPlayerRef.current?.play();
-  } catch (e) {
-    console.error('Erro ao iniciar vídeo:', e);
-  }
-};
+    try {
+      const player = vimeoPlayerRef.current;
+      if (!player) return;
 
-  const handleUnmute = async (e: React.MouseEvent) => {
-  e.stopPropagation();
-
-  try {
-    const player = vimeoPlayerRef.current;
-    if (!player) return;
-
-    await player.ready();
-
-    // Safari/iOS exige essa ordem
-    await player.play();
-    await player.setMuted(false);
-    await player.setVolume(1);
-
-    setIsMuted(false);
-
-    setTimeout(() => {
-      setSoundButtonVisible(false);
-    }, 1500);
-  } catch (e) {
-    console.error('Erro ao ativar som:', e);
-  }
-};
+      await player.ready();
+      
+      // Immediately unmute and set full volume on user interaction
+      await player.setMuted(false);
+      await player.setVolume(1);
+      await player.play();
+    } catch (e) {
+      console.error('Erro ao iniciar vídeo:', e);
+    }
+  };
 
   const closeExitIntent = () => {
     setShowExitIntent(false);
@@ -264,7 +243,6 @@ const VSLPage: React.FC<VSLPageProps> = ({ userName, onBack }) => {
         {/* VIMEO VIDEO SECTION */}
         <div className="relative aspect-video bg-black rounded-xl shadow-2xl overflow-hidden mb-8 border-4 border-white ring-1 ring-stone-200 group transform transition-all">
           
-          {/* Iframe is now always rendered to allow API control, but sits behind cover until clicked */}
           <iframe 
             ref={iframeRef}
             src="https://player.vimeo.com/video/1156096923?api=1&autoplay=0&controls=0&title=0&byline=0&portrait=0&branding=0&badge=0&autopause=0&player_id=vsl_player&app_id=58479&playsinline=1"
@@ -275,16 +253,14 @@ const VSLPage: React.FC<VSLPageProps> = ({ userName, onBack }) => {
             title="Hidrolipo Bellavance"
             className="absolute inset-0 w-full h-full z-0"
             />
-          {/* Cover Overlay - Fades out on click */}
+          
           {!isVideoPlaying && (
              <div className="absolute inset-0 cursor-pointer z-10 group" onClick={handleStartVideo}>
-              {/* Cover Image & Dark Overlay */}
               <div className="absolute inset-0 z-0">
                  <img src="https://vumbnail.com/1156096923_large.jpg" alt="Capa" className="w-full h-full object-cover" />
                  <div className="absolute inset-0 bg-stone-900/40 backdrop-blur-[2px]"></div>
               </div>
               
-              {/* Button */}
               <div className="absolute inset-0 flex flex-col items-center justify-center z-20">
                 <div className="relative group-hover:scale-105 transition-transform duration-300">
                     <div className="absolute inset-0 bg-bellavance-teal rounded-full animate-ping opacity-20"></div>
@@ -300,21 +276,6 @@ const VSLPage: React.FC<VSLPageProps> = ({ userName, onBack }) => {
                     </div>
                 </div>
               </div>
-            </div>
-          )}
-
-          {/* Persistent Sound Button - Appears when video is playing */}
-          {isVideoPlaying && soundButtonVisible && (
-            <div className="absolute top-4 right-4 z-20 animate-fade-in">
-                <button 
-                    onClick={handleUnmute}
-                    className="bg-black/50 hover:bg-bellavance-teal/90 backdrop-blur-md text-white px-4 py-2 rounded-full flex items-center gap-2 transition-all border border-white/20 shadow-lg group"
-                >
-                    {isMuted ? <VolumeX className="w-4 h-4 text-red-400" /> : <Volume2 className="w-4 h-4 text-green-400" />}
-                    <span className="text-xs font-bold uppercase tracking-wide">
-                        {isMuted ? "Toque para Ativar Som" : "Som Ativado"}
-                    </span>
-                </button>
             </div>
           )}
         </div>
