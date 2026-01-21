@@ -86,10 +86,13 @@ const QuizStep: React.FC<QuizStepProps> = ({ question, onAnswer, allAnswers = {}
                     
                     <div className="flex justify-center mb-4">{icon}</div>
                     
-                    <h3 className="text-stone-500 text-xs font-bold uppercase tracking-widest mb-2">Seu IMC Calculado</h3>
-                    <div className="text-5xl font-serif font-bold text-stone-800 mb-2">{bmi.toFixed(1)}</div>
-                    <div className={`text-sm font-bold uppercase tracking-wide mb-6 ${colorClass}`}>
-                        {bmi < 18.5 ? "Abaixo do Peso" : bmi < 24.9 ? "Peso Normal" : bmi < 29.9 ? "Sobrepeso" : "Obesidade"}
+                    {/* Updated Display Priority */}
+                    <div className={`text-2xl md:text-3xl font-serif font-bold mb-2 ${colorClass}`}>
+                        Acúmulo Corporal Localizado
+                    </div>
+                    
+                    <div className="text-stone-400 text-sm font-medium mb-6">
+                        IMC Calculado: <span className="font-bold text-stone-600">{bmi.toFixed(1)}</span>
                     </div>
 
                     <div className="bg-stone-50 rounded-xl p-4 border border-stone-100 text-left">
