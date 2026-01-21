@@ -12,9 +12,6 @@ interface QuizStepProps {
 const QuizStep: React.FC<QuizStepProps> = ({ question, onAnswer, allAnswers = {} }) => {
   const [inputValue, setInputValue] = useState<string>('');
   const [formData, setFormData] = useState({ name: '', phone: '' });
-  
-  // Modal State
-  const [selectedInfoOption, setSelectedInfoOption] = useState<Option | null>(null);
 
   const handleInputSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -291,20 +288,6 @@ const QuizStep: React.FC<QuizStepProps> = ({ question, onAnswer, allAnswers = {}
                     {option.label}
                   </span>
                 </div>
-                
-                {/* Info Icon - Render if description exists */}
-                {option.description && (
-                    <div 
-                        onClick={(e) => {
-                            e.stopPropagation(); // Prevent selecting the answer
-                            setSelectedInfoOption(option);
-                        }}
-                        className="relative z-20 p-2 mr-2 text-stone-300 hover:text-bellavance-teal hover:bg-stone-50 rounded-full transition-colors"
-                        title="Ver detalhes"
-                    >
-                        <Info className="w-5 h-5" />
-                    </div>
-                )}
 
                 {/* Icon/Selection Indicator */}
                 {option.icon ? (
@@ -412,56 +395,23 @@ const QuizStep: React.FC<QuizStepProps> = ({ question, onAnswer, allAnswers = {}
   };
 
   return (
-    <>
-        <div className="flex flex-col items-center animate-fade-in-up w-full">
-            {/* Render Title/Subtext for Non-Info steps here. Info steps handle their own layout */}
-            {question.type !== QuestionType.INFO && (
-                <div className="px-4">
-                    <h2 className="text-xl md:text-3xl font-bold text-stone-800 text-center mb-3 font-serif leading-tight">
-                        {question.question}
-                    </h2>
-                    {question.subtext && (
-                        <p className="text-stone-500 text-center mb-6 md:mb-8 max-w-md font-light leading-relaxed text-sm md:text-base mx-auto">
-                        {question.subtext}
-                        </p>
-                    )}
-                </div>
-            )}
-        
-        {renderContent()}
-        </div>
-
-        {/* INFO MODAL */}
-        {selectedInfoOption && (
-            <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-stone-900/40 backdrop-blur-sm animate-fade-in">
-                <div className="bg-white rounded-2xl w-full max-w-sm overflow-hidden shadow-2xl relative animate-fade-in-up">
-                    <button 
-                        onClick={() => setSelectedInfoOption(null)}
-                        className="absolute top-3 right-3 p-1.5 bg-black/20 hover:bg-black/40 text-white rounded-full z-10 transition-colors"
-                    >
-                        <X className="w-5 h-5" />
-                    </button>
-                    {selectedInfoOption.image && (
-                        <div className="h-48 w-full bg-stone-100">
-                             <img src={selectedInfoOption.image} alt={selectedInfoOption.label} className="w-full h-full object-cover" />
-                        </div>
-                    )}
-                    <div className="p-6">
-                        <h3 className="text-xl font-bold text-stone-800 mb-2 font-serif">{selectedInfoOption.label}</h3>
-                        <p className="text-stone-600 leading-relaxed text-sm font-light">
-                            {selectedInfoOption.description || "Nenhuma descrição disponível."}
-                        </p>
-                        <button 
-                            onClick={() => setSelectedInfoOption(null)}
-                            className="w-full mt-6 bg-bellavance-teal hover:bg-bellavance-tealDark text-white py-3 rounded-xl font-bold text-sm transition-colors"
-                        >
-                            Fechar
-                        </button>
-                    </div>
-                </div>
+    <div className="flex flex-col items-center animate-fade-in-up w-full">
+        {/* Render Title/Subtext for Non-Info steps here. Info steps handle their own layout */}
+        {question.type !== QuestionType.INFO && (
+            <div className="px-4">
+                <h2 className="text-xl md:text-3xl font-bold text-stone-800 text-center mb-3 font-serif leading-tight">
+                    {question.question}
+                </h2>
+                {question.subtext && (
+                    <p className="text-stone-500 text-center mb-6 md:mb-8 max-w-md font-light leading-relaxed text-sm md:text-base mx-auto">
+                    {question.subtext}
+                    </p>
+                )}
             </div>
         )}
-    </>
+    
+    {renderContent()}
+    </div>
   );
 };
 
