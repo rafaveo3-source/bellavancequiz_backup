@@ -20,32 +20,14 @@ const Logo: React.FC = () => (
   </div>
 );
 
-const STORAGE_KEY = 'bellavance_quiz_progress';
-
 const App: React.FC = () => {
-  const [state, setState] = useState<QuizState>(() => {
-    // Initialize from local storage if available
-    const saved = localStorage.getItem(STORAGE_KEY);
-    if (saved) {
-      try {
-        return JSON.parse(saved);
-      } catch (e) {
-        console.error("Failed to parse saved state", e);
-      }
-    }
-    return {
-      answers: {},
-      currentStepIndex: 0,
-      isCalculating: false,
-      showVSL: false,
-      userName: ''
-    };
+  const [state, setState] = useState<QuizState>({
+    answers: {},
+    currentStepIndex: 0,
+    isCalculating: false,
+    showVSL: false,
+    userName: ''
   });
-
-  // Save to local storage whenever state changes
-  useEffect(() => {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-  }, [state]);
 
   const currentQuestion = QUESTIONS[state.currentStepIndex];
   const progress = ((state.currentStepIndex + 1) / QUESTIONS.length) * 100;
