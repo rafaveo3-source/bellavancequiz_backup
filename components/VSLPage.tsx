@@ -1,7 +1,7 @@
 
 import Player from '@vimeo/player';
 import React, { useState, useEffect, useRef } from 'react';
-import { MessageCircle, ShieldCheck, Play, CheckCircle2, AlertTriangle, ChevronDown, ChevronUp, MapPin, X, Clock, Sparkles, Smartphone, Instagram, ChevronLeft, Flame, Timer, Lock, AlertOctagon, Volume2, VolumeX } from 'lucide-react';
+import { MessageCircle, ShieldCheck, Play, CheckCircle2, AlertTriangle, ChevronDown, ChevronUp, MapPin, X, Clock, Sparkles, Smartphone, Instagram, ChevronLeft, Flame, Timer, Lock, AlertOctagon, Volume2, CreditCard, Banknote } from 'lucide-react';
 import { VSL_SCRIPT, REVIEWS, FAQ, OFFER_DETAILS, CTA_DELAY_MS, CLINIC_INFO, DRA_BIO, BEFORE_AFTER_IMAGES } from '../constants';
 
 interface VSLPageProps {
@@ -93,7 +93,7 @@ const VSLPage: React.FC<VSLPageProps> = ({ userName, onBack }) => {
     if (!iframeRef.current) return;
 
     vimeoPlayerRef.current = new Player(iframeRef.current, {
-      muted: true, // Start muted for policy, but we'll unmute on first click
+      muted: true,
       autopause: false,
     });
 
@@ -280,7 +280,7 @@ const VSLPage: React.FC<VSLPageProps> = ({ userName, onBack }) => {
           )}
         </div>
 
-        {/* OFFER SECTION - STRICTLY BELOW VIDEO AT 70% TIME */}
+        {/* OFFER SECTION */}
         {showCTA && (
             <div className="bg-white rounded-2xl shadow-xl border-t-4 border-bellavance-gold overflow-hidden mb-12 relative animate-fade-in-up transform transition-transform hover:-translate-y-1 duration-500">
                 <div className="bg-stone-900 text-bellavance-gold text-center py-3 font-bold text-xs md:text-sm tracking-widest uppercase flex items-center justify-center gap-2">
@@ -313,8 +313,30 @@ const VSLPage: React.FC<VSLPageProps> = ({ userName, onBack }) => {
                     <button onClick={() => handleWhatsappClick('Oferta Hidrolipo')} className="w-full bg-[#25D366] hover:bg-[#20bd5a] active:scale-95 text-white font-bold py-4 rounded-xl shadow-lg transition-all animate-pulse flex items-center justify-center gap-2">
                         GARANTIR MINHA VAGA COM DESCONTO
                     </button>
-                    <div className="mt-3 flex items-center justify-center gap-1 text-stone-400 text-[10px] uppercase tracking-wide">
-                        <Lock className="w-3 h-3" /> Pagamento Seguro na Clínica
+                    
+                    {/* PAYMENT METHODS SECTION */}
+                    <div className="mt-6 border-t border-stone-100 pt-6">
+                        <p className="text-[10px] text-stone-400 font-bold uppercase tracking-widest mb-4 flex items-center justify-center gap-2">
+                            <Lock className="w-3 h-3" /> Formas de Pagamento Aceitas
+                        </p>
+                        <div className="flex flex-wrap items-center justify-center gap-4 text-stone-500">
+                            <div className="flex items-center gap-1.5 bg-stone-50 px-3 py-1.5 rounded-lg border border-stone-100">
+                                <CreditCard className="w-3.5 h-3.5 text-bellavance-teal" />
+                                <span className="text-[10px] font-bold">CRÉDITO / DÉBITO</span>
+                            </div>
+                            <div className="flex items-center gap-1.5 bg-stone-50 px-3 py-1.5 rounded-lg border border-stone-100">
+                                <div className="w-3.5 h-3.5 flex items-center justify-center bg-bellavance-teal text-white rounded-[2px] text-[8px] font-black">PIX</div>
+                                <span className="text-[10px] font-bold">PIX</span>
+                            </div>
+                            <div className="flex items-center gap-1.5 bg-stone-50 px-3 py-1.5 rounded-lg border border-stone-100">
+                                <Banknote className="w-3.5 h-3.5 text-bellavance-teal" />
+                                <span className="text-[10px] font-bold">DINHEIRO</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="mt-4 flex items-center justify-center gap-1 text-stone-400 text-[9px] uppercase tracking-wider opacity-60">
+                        Pagamento Seguro Realizado na Clínica
                     </div>
                 </div>
             </div>
