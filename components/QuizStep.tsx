@@ -266,18 +266,17 @@ const QuizStep: React.FC<QuizStepProps> = ({ question, onAnswer, allAnswers = {}
               <button
                 key={option.id}
                 onClick={() => onAnswer(option.id)}
-                className="group relative flex items-center p-3 md:p-4 bg-white rounded-xl text-left transition-all duration-300 shadow-sm hover:shadow-lg border border-transparent hover:border-bellavance-teal/30 active:scale-95 hover:scale-105 touch-manipulation"
+                className="group relative flex items-center p-3 md:p-4 bg-white rounded-xl text-left transition-all duration-300 shadow-sm hover:shadow-lg border border-transparent hover:border-bellavance-teal/30 active:scale-95 hover:scale-105 touch-manipulation w-full"
               >
-                {/* Image Section - Optimized for clarity, responsiveness and interactivity */}
+                {/* Image Section */}
                 {option.image && (
-                  <div className="relative w-16 h-16 md:w-20 md:h-20 rounded-xl overflow-hidden mr-4 shrink-0 bg-stone-100 border border-stone-200 group-hover:border-bellavance-teal/50 shadow-sm z-10 transition-all duration-300 group-hover:shadow-md">
+                  <div className="relative w-16 h-16 md:w-20 md:h-20 rounded-xl overflow-hidden mr-4 shrink-0 bg-stone-100 border border-stone-200 group-hover:border-bellavance-teal/50 shadow-sm z-10 transition-all duration-300">
                     <img 
                         src={option.image} 
                         alt={option.label} 
                         loading="lazy" 
                         className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110" 
                     />
-                    {/* Subtle Sheen Overlay on Hover */}
                     <div className="absolute inset-0 bg-gradient-to-tr from-white/0 to-white/0 group-hover:from-white/10 group-hover:to-white/30 transition-all duration-500 pointer-events-none mix-blend-overlay"></div>
                   </div>
                 )}
@@ -289,7 +288,7 @@ const QuizStep: React.FC<QuizStepProps> = ({ question, onAnswer, allAnswers = {}
                   </span>
                 </div>
 
-                {/* Icon/Selection Indicator */}
+                {/* Selection Indicator */}
                 {option.icon ? (
                   <div className="text-stone-300 ml-2 md:ml-4 transform group-hover:scale-110 group-hover:text-bellavance-teal transition-all duration-300 z-10">
                     {React.cloneElement(option.icon as React.ReactElement<{ className?: string }>, { className: "w-5 h-5 md:w-6 md:h-6" })}
@@ -300,7 +299,6 @@ const QuizStep: React.FC<QuizStepProps> = ({ question, onAnswer, allAnswers = {}
                    </div>
                 )}
 
-                {/* Subtle Ripple/Background Effect */}
                 <div className="absolute inset-0 bg-bellavance-teal/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl pointer-events-none" />
               </button>
             ))}
@@ -396,7 +394,6 @@ const QuizStep: React.FC<QuizStepProps> = ({ question, onAnswer, allAnswers = {}
 
   return (
     <div className="flex flex-col items-center animate-fade-in-up w-full">
-        {/* Render Title/Subtext for Non-Info steps here. Info steps handle their own layout */}
         {question.type !== QuestionType.INFO && (
             <div className="px-4">
                 <h2 className="text-xl md:text-3xl font-bold text-stone-800 text-center mb-3 font-serif leading-tight">
